@@ -133,12 +133,18 @@ class OrderBuilder
 	}
 
 	/**
-	 * @param int $createdAt Дата создания счета
+	 * @param int|string $createdAt Дата создания счета
 	 * @return self
 	 */ 
-	public function setCreatedAt(int $createdAt): self
+	public function setCreatedAt($createdAt): self
 	{
-		$this->params['bill_created'] = $createdAt;
+		$time = is_int($createdAt) ? $createdAt : strtotime($createdAt);
+
+		if ($time === false) {
+			throw new JustClickException('Неверно указана дата');
+		}
+
+		$this->params['bill_created'] = $time;
 
 		return $this;
 	}

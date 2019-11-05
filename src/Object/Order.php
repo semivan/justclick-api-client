@@ -267,11 +267,17 @@ class Order
 	}
 
 	/**
-	 * @return int Дата создания счета
-	 */ 
-	public function getCreatedAt(): ?int
+	 * @param boolean $toString Конвертировать в дату?
+	 * @param string  $format   Формат даты
+	 * @return int|string|null Дата создания счета
+	 */
+	public function getCreatedAt(bool $toString = true, string $format = 'Y-m-d H:i:s')
 	{
-		return $this->createdAt;
+		if (!$this->createdAt) {
+			return null;
+		}
+
+		return $toString ? date($format, $this->createdAt) : $this->createdAt;
 	}
 
 	/**
@@ -283,11 +289,17 @@ class Order
 	}
 
 	/**
-	 * @return int Дата оплаты счета
-	 */ 
-	public function getPaidAt(): ?int
+	 * @param boolean $toString Конвертировать в дату?
+	 * @param string  $format   Формат даты
+	 * @return int|string|null Дата оплаты счета
+	 */
+	public function getPaidAt(bool $toString = true, string $format = 'Y-m-d H:i:s')
 	{
-		return $this->paidAt;
+		if (!$this->paidAt) {
+			return null;
+		}
+
+		return $toString ? date($format, $this->paidAt) : $this->paidAt;
 	}
 
 	/**
