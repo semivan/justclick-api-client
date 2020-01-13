@@ -15,7 +15,7 @@ class OrderBuilder
 	 * @param string $firstName Имя
 	 * @return self
 	 */ 
-	public function setFirstName(string $firstName): self
+	public function setFirstName(?string $firstName): self
 	{
 		$this->params['bill_first_name'] = $firstName;
 
@@ -26,7 +26,7 @@ class OrderBuilder
 	 * @param string $lastName Фамилия
 	 * @return self
 	 */ 
-	public function setLastName(string $lastName): self
+	public function setLastName(?string $lastName): self
 	{
 		$this->params['bill_surname'] = $lastName;
 
@@ -37,7 +37,7 @@ class OrderBuilder
 	 * @param string $middleName Отчество
 	 * @return self
 	 */ 
-	public function setMiddleName(string $middleName): self
+	public function setMiddleName(?string $middleName): self
 	{
 		$this->params['bill_otchestvo'] = $middleName;
 
@@ -48,7 +48,7 @@ class OrderBuilder
 	 * @param string $email Email адрес
 	 * @return self
 	 */ 
-	public function setEmail(string $email): self
+	public function setEmail(?string $email): self
 	{
 		$this->params['bill_email'] = $email;
 
@@ -59,7 +59,7 @@ class OrderBuilder
 	 * @param string $phone Телефон
 	 * @return self
 	 */ 
-	public function setPhone(string $phone): self
+	public function setPhone(?string $phone): self
 	{
 		$this->params['bill_phone'] = $phone;
 
@@ -70,7 +70,7 @@ class OrderBuilder
 	 * @param string $city Город
 	 * @return self
 	 */ 
-	public function setCity(string $city): self
+	public function setCity(?string $city): self
 	{
 		$this->params['bill_city'] = $city;
 
@@ -81,7 +81,7 @@ class OrderBuilder
 	 * @param string $country Страна
 	 * @return self
 	 */ 
-	public function setCountry(string $country): self
+	public function setCountry(?string $country): self
 	{
 		$this->params['bill_country'] = $country;
 
@@ -92,7 +92,7 @@ class OrderBuilder
 	 * @param string $address Адрес
 	 * @return self
 	 */ 
-	public function setAddress(string $address): self
+	public function setAddress(?string $address): self
 	{
 		$this->params['bill_address'] = $address;
 
@@ -103,7 +103,7 @@ class OrderBuilder
 	 * @param string $region Регион
 	 * @return self
 	 */ 
-	public function setRegion(string $region): self
+	public function setRegion(?string $region): self
 	{
 		$this->params['bill_region'] = $region;
 
@@ -114,7 +114,7 @@ class OrderBuilder
 	 * @param string $postalcode Почтовый индекс
 	 * @return self
 	 */ 
-	public function setPostalcode(string $postalcode): self
+	public function setPostalcode(?string $postalcode): self
 	{
 		$this->params['bill_postal_code'] = $postalcode;
 
@@ -125,7 +125,7 @@ class OrderBuilder
 	 * @param string $ip IP покупателя
 	 * @return self
 	 */ 
-	public function setIp(string $ip): self
+	public function setIp(?string $ip): self
 	{
 		$this->params['bill_ip'] = $ip;
 
@@ -153,7 +153,7 @@ class OrderBuilder
 	 * @param string $comment Комментарий к счету
 	 * @return self
 	 */ 
-	public function setComment(string $comment): self
+	public function setComment(?string $comment): self
 	{
 		$this->params['bill_comment'] = $comment;
 
@@ -164,7 +164,7 @@ class OrderBuilder
 	 * @param string $domain Домен заказа
 	 * @return self
 	 */ 
-	public function setDomain(string $domain): self
+	public function setDomain(?string $domain): self
 	{
 		$this->params['bill_domain'] = $domain;
 
@@ -175,7 +175,7 @@ class OrderBuilder
 	 * @param string $tag Тэг
 	 * @return self
 	 */ 
-	public function setTag(string $tag): self
+	public function setTag(?string $tag): self
 	{
 		$this->params['bill_tag'] = $tag;
 
@@ -186,7 +186,7 @@ class OrderBuilder
 	 * @param string $kupon Использованный купон
 	 * @return self
 	 */ 
-	public function setKupon(string $kupon): self
+	public function setKupon(?string $kupon): self
 	{
 		$this->params['bill_kupon'] = $kupon;
 
@@ -278,16 +278,18 @@ class OrderBuilder
 	 */ 
 	public function getParams(): array
 	{
-		if (empty($this->params['bill_email'])) {
+		$params = array_filter($this->params);
+
+		if (empty($params['bill_email'])) {
 			throw new JustClickException('Не указан email клиента');
 		}
 
-		if (empty($this->params['goods'])) {
+		if (empty($params['goods'])) {
 			throw new JustClickException('Список продуктов пуст');
 		}
 
-		$this->params['bill_created'] = $this->params['bill_created'] ?? time();
+		$params['bill_created'] = $params['bill_created'] ?? time();
 
-		return $this->params;
+		return $params;
 	}
 }
