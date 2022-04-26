@@ -2,14 +2,14 @@
     "name": "semivan/justclick-api-client",
     "description": "Удобный PHP клиент для работы с API JustClick",
     "type": "library",
-	"license": "MIT",
-	"minimum-stability": "dev",
+    "license": "MIT",
+    "minimum-stability": "dev",
     "keywords": [
-		"justclick",
-		"api",
-		"client",
-		"library"
-	],
+        "justclick",
+        "api",
+        "client",
+        "library"
+    ],
     "authors": [
         {
             "name": "Ivan Semenikhin",
@@ -17,7 +17,7 @@
         }
     ],
     "require": {
-		"php": ">=7.1",
+        "php": ">=7.1",
         "guzzlehttp/guzzle": "6.*",
         "symfony/http-foundation": "4.*"
     },
